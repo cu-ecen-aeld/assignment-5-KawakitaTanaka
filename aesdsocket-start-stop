@@ -1,0 +1,19 @@
+#!/bin/sh
+
+case "$1" in
+    start)
+        echo "Starting aesdsocket"
+        start-stop-daemon --start --quiet --background --make-pidfile --pidfile /var/run/aesdsocket.pid --exec /usr/bin/aesdsocket -- -d
+        ;;
+    stop)
+        echo "Stopping aesdsocket"
+        start-stop-daemon --stop --quiet --pidfile /var/run/aesdsocket.pid
+        rm -f /var/run/aesdsocket.pid
+        ;;
+    *)
+        echo "Usage: $0 {start|stop}"
+        exit 1
+esac
+
+exit 0
+
